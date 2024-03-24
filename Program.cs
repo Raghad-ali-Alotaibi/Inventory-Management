@@ -26,6 +26,17 @@ class Item
         Quantity = quantity;
         CreatedDate = createdDate == default ? DateTime.Now : createdDate;
     }
+}
 
+
+class Store {
+    private List<Item> items =new List<Item>();
+
+    public void AddItem(){
+
+    }
+    public void DeleteItem(){
+
+    }
 
 }
