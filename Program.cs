@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 class Item
 {
@@ -9,7 +10,6 @@ class Item
         get { return quantity; }
         set { quantity = value; }
     }
-
     private DateTime CreatedDate { get; set; }
 
     // Contructor 
@@ -70,6 +70,19 @@ class Store
     {
         return items.Sum(item => item.Quantity);
     }
+
+    public Item FindItemByName(string itemName)
+    {
+        Item itemFind = items.FirstOrDefault(item => item.Name == itemName);
+        return itemFind;
+    }
+
+
+    public List<Item> SortByNameAscto()
+    {
+        return items.OrderBy(item => item.Name).ToList();
+    }
+
 }
 
 
@@ -90,9 +103,15 @@ class Program
         store.AddItem(notebook);
         store.AddItem(pen);
 
-        store.PrintItem();
-
         store.DeleteItem("Water Bottle 1");
         Console.WriteLine($"{store.GetCurrentVolume()}");
+
+        Console.WriteLine($"{store.FindItemByName("Pen")}");
+
+        var collections = store.SortByNameAscto();
+        foreach (var item in collections)
+        {
+            Console.WriteLine($"{item}");
+        }
     }
 }
