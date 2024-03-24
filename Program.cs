@@ -15,11 +15,16 @@ class Item
 
     private DateTime CreatedDate { get; set; }
 
-    public Item(string name, int quantity, DateTime createdDate)
+    // Contructor 
+    public Item(string name, int quantity, DateTime createdDate = default)
     {
+        if (quantity < 0)
+        {
+            throw new Exception("Quantity cannot be negative");
+        }
         Name = name;
         Quantity = quantity;
-        CreatedDate = createdDate;
+        CreatedDate = createdDate == default ? DateTime.Now : createdDate;
     }
 
 
