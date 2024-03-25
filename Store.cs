@@ -1,27 +1,35 @@
 using ItemSpace;
+
 namespace StoreSpace;
 
 class Store
 {
     private List<Item> items = new List<Item>();
 
-    public void PrintItem()
+    public int MaximumCapacity { get; private set; }
+
+    // Contructor 
+    public Store(int capacity)
     {
-        foreach (var item in items)
-        {
-            Console.WriteLine($"{item}");
-        }
+        MaximumCapacity = capacity;
     }
+
     public void AddItem(Item item)
     {
-        bool isItemExist = items.Any((newItem) => newItem.Name == item.Name);
-        if (isItemExist)
+        if (items.Count < MaximumCapacity)
         {
-            Console.WriteLine("Item with the same name already exists in the store.");
-            return;
+            bool isItemExist = items.Any((newItem) => newItem.Name == item.Name);
+            if (isItemExist)
+            {
+                Console.WriteLine("Item with the same name already exists in the store.");
+                return;
+            }
+            items.Add(item);
         }
-        items.Add(item);
-
+        else
+        {
+            Console.WriteLine("Store is at maximum capacity. Cannot add more items.");
+        }
     }
     public void DeleteItem(string itemName)
     {

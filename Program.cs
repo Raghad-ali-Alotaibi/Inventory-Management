@@ -15,7 +15,7 @@ class Program
         var pen = new Item("Pen", 20, new DateTime(2023, 4, 1));
 
 
-        var store = new Store();
+        var store = new Store(3);
 
         store.AddItem(waterBottle);
         store.AddItem(chocolateBar);
