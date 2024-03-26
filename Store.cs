@@ -37,7 +37,7 @@ namespace InventorySpace
 
         public void DeleteItem(string itemName)
         {
-            Item itemToDelete = items.FirstOrDefault(item => item.Name == itemName);
+            Item? itemToDelete = items.FirstOrDefault(item => item.Name == itemName);
             if (itemToDelete != null)
             {
                 items.Remove(itemToDelete);
@@ -56,7 +56,7 @@ namespace InventorySpace
 
         public Item FindItemByName(string itemName)
         {
-            Item itemFind = items.FirstOrDefault(item => item.Name == itemName);
+            Item itemFind = items.FirstOrDefault(item => item.Name == itemName)!;
             return itemFind;
         }
 

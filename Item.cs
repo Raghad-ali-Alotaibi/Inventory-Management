@@ -2,12 +2,12 @@ namespace InventorySpace
 {
     class Item
     {
-        public string Name { get; }
+        public string? Name { get; }
         private int quantity;
         public int Quantity
         {
-            get { return quantity; }
-            set { quantity = value; }
+            get;
+            private set;
         }
         private DateTime createdDate;
         public DateTime CreatedDate { get; set; }
