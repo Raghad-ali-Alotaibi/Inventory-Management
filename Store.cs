@@ -77,6 +77,20 @@ namespace InventorySpace
             }
         }
 
+        public Dictionary<string, List<Item>> GroupByDate()
+        {
+            DateTime currentDate = DateTime.Now;
+            DateTime threeMonthsAgo = currentDate.AddMonths(-3);
+
+            Dictionary<string, List<Item>> groupedItems = new Dictionary<string, List<Item>>();
+
+            List<Item> newItems = items.Where(item => item.CreatedDate >= threeMonthsAgo).ToList();
+            List<Item> oldItems = items.Where(item => item.CreatedDate < threeMonthsAgo).ToList();
+
+            groupedItems.Add("New Arrival", newItems);
+            groupedItems.Add("Old", oldItems);
+
+            return groupedItems;
+        }
     }
 }
-

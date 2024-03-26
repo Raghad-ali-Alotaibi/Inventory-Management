@@ -48,6 +48,17 @@ namespace InventorySpace
             {
                 Console.WriteLine($"{item}");
             }
+
+            // Print New Arrival and Old items. 
+            var groupByDate = store.GroupByDate();
+            foreach (var group in groupByDate)
+            {
+                Console.WriteLine($"{group.Key} Items:");
+                foreach (var item in group.Value)
+                {
+                    Console.WriteLine($" - {item.Name}, Created: {item.CreatedDate.ToShortDateString()}");
+                }
+            }
         }
     }
 }
