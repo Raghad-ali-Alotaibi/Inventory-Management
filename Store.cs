@@ -1,59 +1,82 @@
-using ItemSpace;
-
-namespace StoreSpace;
-
-class Store
+namespace InventorySpace
 {
-    private List<Item> items = new List<Item>();
-
-    public int MaximumCapacity { get; set; }
-    // Contructor 
-    public Store(int capacity)
+    public enum SortOrder
     {
-        MaximumCapacity = capacity;
+        ASC,
+        DESC
     }
 
-    public void AddItem(Item item)
+    class Store
     {
-        if (items.Count < MaximumCapacity)
+        private List<Item> items = new List<Item>();
+
+        public int MaximumCapacity { get; set; }
+        // Contructor 
+        public Store(int capacity)
         {
-            bool isItemExist = items.Any((newItem) => newItem.Name == item.Name);
-            if (isItemExist)
+            MaximumCapacity = capacity;
+        }
+
+        public void AddItem(Item item)
+        {
+            if (items.Count < MaximumCapacity)
             {
-                Console.WriteLine("Item with the same name already exists in the store.");
-                return;
+                bool isItemExist = items.Any((newItem) => newItem.Name == item.Name);
+                if (isItemExist)
+                {
+                    Console.WriteLine("Item with the same name already exists in the store.");
+                    return;
+                }
+                items.Add(item);
             }
-            items.Add(item);
+            else
+            {
+                Console.WriteLine("Store is at maximum capacity. Cannot add more items.");
+            }
         }
-        else
+
+        public void DeleteItem(string itemName)
         {
-            Console.WriteLine("Store is at maximum capacity. Cannot add more items.");
+            Item itemToDelete = items.FirstOrDefault(item => item.Name == itemName);
+            if (itemToDelete != null)
+            {
+                items.Remove(itemToDelete);
+                Console.WriteLine("Item was Deleted");
+            }
+            else
+            {
+                Console.WriteLine("Item not found in the store.");
+            }
         }
-    }
-    public void DeleteItem(string itemName)
-    {
-        Item itemToDelete = items.FirstOrDefault(item => item.Name == itemName);
-        if (itemToDelete != null)
+
+        public int GetCurrentVolume()
         {
-            items.Remove(itemToDelete);
-            Console.WriteLine("Item was Deleted");
+            return items.Sum(item => item.Quantity);
         }
-        else
+
+        public Item FindItemByName(string itemName)
         {
-            Console.WriteLine("Item not found in the store.");
+            Item itemFind = items.FirstOrDefault(item => item.Name == itemName);
+            return itemFind;
         }
-    }
-    public int GetCurrentVolume()
-    {
-        return items.Sum(item => item.Quantity);
-    }
-    public Item FindItemByName(string itemName)
-    {
-        Item itemFind = items.FirstOrDefault(item => item.Name == itemName);
-        return itemFind;
-    }
-    public List<Item> SortByNameAscto()
-    {
-        return items.OrderBy(item => item.Name).ToList();
+
+        public List<Item> SortByNameAscto()
+        {
+            return items.OrderBy(item => item.Name).ToList();
+        }
+
+        public List<Item> SortByDate(SortOrder order)
+        {
+            if (order == SortOrder.ASC)
+            {
+                return items.OrderBy(item => item.CreatedDate).ToList();
+            }
+            else
+            {
+                return items.OrderByDescending(item => item.CreatedDate).ToList();
+            }
+        }
+
     }
 }
+
