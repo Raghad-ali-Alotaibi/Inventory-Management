@@ -6,8 +6,7 @@ class Store
 {
     private List<Item> items = new List<Item>();
 
-    public int MaximumCapacity { get; private set; }
-
+    public int MaximumCapacity { get; set; }
     // Contructor 
     public Store(int capacity)
     {
